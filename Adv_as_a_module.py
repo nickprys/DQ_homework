@@ -64,24 +64,25 @@ class News(Publications):
             f.write(output + '\n')
 
 
-# Main logic: acts based on user's choice
-inp = input("What do you want to do? input 1 if adv input 2 if news input 3 if shop")
+if __name__ == '__main__':
+    # Main logic: acts based on user's choice
+    inp = input("What do you want to do? input 1 if adv input 2 if news input 3 if shop")
 
-# Advertising
-if inp == '1':
-    adv_text = input("type your adv")
-    adv = Advertazing('Ad_name', adv_text)
-    adv.print_adv()
+    # Advertising
+    if inp == '1':
+        adv_text = input("type your adv")
+        adv = Advertazing('Ad_name', adv_text)
+        adv.print_adv()
 
-# News
-elif inp == '2':
-    city_name = input("type your city")
-    news = News('name', city_name)
-    news.print_news()
+    # News
+    elif inp == '2':
+        city_name = input("type your city")
+        news = News('name', city_name)
+        news.print_news()
 
-# Shop
-elif inp == '3':
-    fuel = int(input("Input 1 if you want gas, input 2 if diesel"))
-    shop = Shop('name', fuel)
-    shop.print_price()
+    # Shop
+    elif inp == '3':
+        fuel = int(input("Input 1 if you want gas, input 2 if diesel"))
+        shop = Shop('name', fuel)
+        shop.print_price()
 
