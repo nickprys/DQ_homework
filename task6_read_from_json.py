@@ -20,20 +20,10 @@ try:
     print("File has been deleted.")
 except FileNotFoundError:
     print("The file was not found.")
-# Opening JSON file
 
 
-# returns JSON object as
-# a dictionary
-
-
-# Iterating through the json
-# list
-
-# print(data['file_type_gen'])
-# print(data['file_type_details'][0]['adv_text'])
 adv_data = str(data['file_type_details'][0]['adv_text'])
-    # print(type(adv_data))
+
 if data['file_type_gen'] == 'adv':
 
     x = funct_dq.norm_text(adv_data)
