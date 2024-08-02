@@ -6,7 +6,7 @@ from datetime import date
 # Add the parent directory to the sys.path
 module_path = 'C:\\Users\\Mykola_Prysiazhniuk\\PycharmProjects\\DQ0802_functions_task4\\test_pac44'
 sys.path.append(module_path)
-# Now you can import your module
+# import your module
 import funct_dq
 
 file_path = 'input.json'
@@ -15,7 +15,7 @@ try:
         data = json.load(file)
     print("Data successfully read from the file")
 
-    # Now that the data is read, you can proceed to delete the file
+    # proceed to delete the file
     os.remove(file_path)
     print("File has been deleted.")
 except FileNotFoundError:
@@ -40,5 +40,5 @@ elif data['file_type_gen'] == 'news':
 
 
 
-    # Closing file
+
 file.close()
