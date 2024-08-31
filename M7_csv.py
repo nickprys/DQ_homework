@@ -27,7 +27,7 @@ def count_letters(text):
     return data
 
 def main():
-    text = read_file('newsfeed.txt')  # Adjust the file path as needed
+    text = read_file('newsfeed.txt')  
 
     # Word counts
     word_counts = count_words(text)
