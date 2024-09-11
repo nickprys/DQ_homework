@@ -8,8 +8,7 @@
 		{
 			"file_type": "shop",
 			"fuel_type": "gas",
-			"gas": "gas cost 10",
-			"diesel": "diesel cost 7"
+			"gas": "gas cost 10"
 		},
 		{
 			"file_type": "news",

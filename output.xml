@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<data file_type_gen="shop">
+  <file_type_detail>
+    <file_type>adv</file_type>
+    <adv_text>HelLo THis is the tEst text.HHH</adv_text>
+  </file_type_detail>
+  <file_type_detail>
+    <file_type>shop</file_type>
+    <fuel_type>gas</fuel_type>
+    <gas>gas cost 10</gas>
+  </file_type_detail>
+  <file_type_detail>
+    <file_type>news</file_type>
+    <new_text>Airplane crash</new_text>
+    <city_name>Chicago</city_name>
+  </file_type_detail>
+</data>

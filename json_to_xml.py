@@ -9,10 +9,10 @@ def prettify(elem):
     return reparsed.toprettyxml(indent="  ")
 
 json_data = {
-    "file_type_gen": "adv",
+    "file_type_gen": "shop",
     "file_type_details": [
         {"file_type": "adv", "adv_text": "HelLo THis is the tEst text.HHH"},
-        {"file_type": "shop", "fuel_type": "gas", "gas": "gas cost 10", "diesel": "diesel cost 7"},
+        {"file_type": "shop", "fuel_type": "gas", "gas": "gas cost 10"},
         {"file_type": "news", "new_text": "Airplane crash", "city_name": "Chicago"}
     ]
 }

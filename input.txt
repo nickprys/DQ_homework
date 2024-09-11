@@ -1,0 +1,7 @@
+file_type_gen: news
+adv_text: HelLo THis is the tEst text.HHH
+fuel_type: diesel
+gas: gas cost 10
+diesel: diesel cost 7
+city_name: Chicago
+new_text: Airplane crash
