@@ -14,11 +14,12 @@ try:
     root = tree.getroot()
     print("Data successfully read from the file")
 
-    # proceed to delete the file
-    os.remove(file_path)
-    print("File has been deleted.")
+    # Uncomment the below lines if you want to delete the file after parsing
+    # os.remove(file_path)
+    # print("File has been deleted.")
 except FileNotFoundError:
     print("The file was not found.")
+    sys.exit(1)  # Exit the script as there's no file to process
 
 file_type_gen = root.get('file_type_gen')
 
@@ -29,12 +30,20 @@ for detail in root.findall('file_type_detail'):
         y = funct_dq.add_space_after_dot(x)
         print(y)
 
-    elif file_type_gen == 'shop' and detail.find('fuel_type').text == 'diesel':
-        print(detail.find('diesel').text)
+    elif file_type_gen == 'shop':
+        fuel_type_element = detail.find('fuel_type')
+        if fuel_type_element is not None:
+            fuel_type = fuel_type_element.text
+            if fuel_type == 'diesel':
+                diesel_text = detail.find('diesel').text if detail.find('diesel') is not None else "No diesel info found"
+                print(diesel_text)
+            elif fuel_type == 'gas':
+                gas_text = detail.find('gas').text if detail.find('gas') is not None else "No gas info found"
+                print(gas_text)
 
-    elif file_type_gen == 'shop' and detail.find('fuel_type').text == 'gas':
-        print(detail.find('gas').text)
-
-    elif file_type_gen == 'news' and detail.find('new_text') is not None:
-        today = str(date.today())
-        print(today + ' In the city ' + detail.find('city_name').text + ' ' + detail.find('new_text').text)
+    elif file_type_gen == 'news':
+        new_text_element = detail.find('new_text')
+        city_name_element = detail.find('city_name')
+        if new_text_element is not None and city_name_element is not None:
+            today = str(date.today())
+            print(today + ' In the city ' + city_name_element.text + ' ' + new_text_element.text)
