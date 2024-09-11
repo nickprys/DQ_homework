@@ -9,15 +9,15 @@ sys.path.append(module_path)
 # import your module
 import funct_dq
 
-file_path = 'input'
+file_path = 'input - news.json'
 try:
     with open(file_path, 'r') as file:
         data = json.load(file)
     print("Data successfully read from the file")
 
     # proceed to delete the file
-    os.remove(file_path)
-    print("File has been deleted.")
+    #os.remove(file_path)
+    #print("File has been deleted.")
 except FileNotFoundError:
     print("The file was not found.")
 

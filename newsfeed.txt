@@ -10,3 +10,4 @@ Diesel cost 7
 Gas cost 10
 your_adv ththththtt
 Diesel cost 7
+your_adv dddd ggggg
