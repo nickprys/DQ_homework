@@ -37,7 +37,7 @@ module_path = 'C:\\Users\\Mykola_Prysiazhniuk\\PycharmProjects\\DQ0802_functions
 sys.path.append(module_path)
 import funct_dq
 
-file_path = 'output.xml'
+file_path = 'input.xml'
 db_manager = DatabaseManager('test1.db')  # Initialize database
 
 try:

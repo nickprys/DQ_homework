@@ -8,7 +8,7 @@ module_path = 'C:\\Users\\Mykola_Prysiazhniuk\\PycharmProjects\\DQ0802_functions
 sys.path.append(module_path)
 import funct_dq
 
-file_path = 'output.xml'
+file_path = 'input.xml'
 try:
     tree = ET.parse(file_path)
     root = tree.getroot()

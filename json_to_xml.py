@@ -30,5 +30,5 @@ for item in json_data["file_type_details"]:
 pretty_xml = prettify(root)
 
 # Write the pretty-printed string to a file
-with open('output.xml', 'w') as xml_file:
+with open('input.xml', 'w') as xml_file:
     xml_file.write(pretty_xml)
