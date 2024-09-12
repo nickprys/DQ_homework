@@ -63,38 +63,34 @@ for detail in root.findall('file_type_detail'):
 
     # Handle 'adv' (advertisement) data type
     if file_type == 'adv' and detail.find('adv_text') is not None:
-        # Normalize and format the advertisement text
         adv_text = detail.find('adv_text').text
-        x = funct_dq.norm_text(adv_text)
-        y = funct_dq.add_space_after_dot(x)
-        print(y)  # Output the formatted advertisement text
-        content = y  # Set content to the formatted text for database insertion
+        normalized_text = funct_dq.norm_text(adv_text)
+        formatted_text = funct_dq.add_space_after_dot(normalized_text)
+        print(formatted_text)
+        content = formatted_text
+        title = "Adv on " + date.today().strftime("%Y-%m-%d")
 
     # Handle 'shop' data type
     elif file_type == 'shop':
-        # Safely obtain the fuel_type element, checking if it exists
         fuel_type_element = detail.find('fuel_type')
         if fuel_type_element is not None:
             fuel_type = fuel_type_element.text
-            # Process based on specific fuel type
-            if fuel_type == 'diesel':
-                diesel_text = detail.find('diesel').text
-                print(diesel_text)  # Output the diesel price information
-                content = diesel_text  # Prepare content for database storage
-            elif fuel_type == 'gas':
-                gas_text = detail.find('gas').text
-                print(gas_text)  # Output the gas price information
-                content = gas_text  # Prepare content for database storage
+            fuel_content = detail.find(fuel_type).text if detail.find(fuel_type) is not None else "Info not available"
+            print(fuel_content)
+            content = fuel_content
+            title = f"Shop update - {fuel_type} on " + date.today().strftime("%Y-%m-%d")
 
     # Handle 'news' data type
-    elif file_type == 'news' and detail.find('new_text') is not None:
-        # Get today's date to prepend to the news content
-        today = str(date.today())
-        news_text = today + ' In the city ' + detail.find('city_name').text + ' ' + detail.find('new_text').text
-        print(news_text)  # Output formatted news information
-        content = news_text  # Set content for database insertion based on the news info
+    elif file_type == 'news':
+        new_text_element = detail.find('new_text')
+        city_name_element = detail.find('city_name')
+        if new_text_element is not None and city_name_element is not None:
+            today = str(date.today())
+            news_content = today + ' In the city ' + city_name_element.text + ' ' + new_text_element.text
+            print(news_content)
+            content = news_content
+            title = f"News from {city_name_element.text} on " + date.today().strftime("%Y-%m-%d")
 
-    # Insert content into the database if it has been set
-    if content:
-        db_manager.insert_record(file_type, detail.get('title', 'No Title'), content)
-        # `detail.get('title', 'No Title')` safely fetches the 'title' attribute or defaults to 'No Title'
+    # Insert content into the database if content and title have been set
+    if content and title:
+        db_manager.insert_record(file_type, title, content)
