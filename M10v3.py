@@ -20,6 +20,9 @@ class DatabaseManager:
         self.cursor.execute("CREATE TABLE IF NOT EXISTS news (date TEXT, city TEXT, news TEXT)")
         self.cursor.execute("CREATE TABLE IF NOT EXISTS shop (fuel_type TEXT, info TEXT)")
         self.cursor.execute("CREATE TABLE IF NOT EXISTS adv (text TEXT)")
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS words_counts (word TEXT, count INTEGER)")
+        self.cursor.execute(
+            "CREATE TABLE IF NOT EXISTS letter_counts (letter TEXT, count_all INTEGER, count_upper INTEGER, percentage TEXT)")
         self.conn.commit()
 
     def insert_news(self, date, city, news):
@@ -51,6 +54,14 @@ class DatabaseManager:
             print("Record added to adv table.")
         else:
             print("Record already exists in the adv table, not adding duplicate.")
+
+    def insert_word_count(self, word, count):
+        self.cursor.execute("INSERT INTO words_counts (word, count) VALUES (?, ?)", (word, count))
+        self.conn.commit()
+
+    def insert_letter_count(self, letter, count_all, count_upper, percentage):
+        self.cursor.execute("INSERT INTO letter_counts (letter, count_all, count_upper, percentage) VALUES (?, ?, ?, ?)", (letter, count_all, count_upper, percentage))
+        self.conn.commit()
 
 
 
