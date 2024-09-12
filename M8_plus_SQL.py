@@ -1,54 +1,54 @@
-import sys
 import json
+import sys
 import os
 from datetime import date
-from M10 import DatabaseManager  # Adjust this path if necessary
 
+# Add the parent directory to the sys.path
 module_path = 'C:\\Users\\Mykola_Prysiazhniuk\\PycharmProjects\\DQ0802_functions_task4\\test_pac44'
 sys.path.append(module_path)
+
+# Import your modules
 import funct_dq
+from M10v2 import DatabaseManager  # Adjust import statement as per actual module/file structure
 
 file_path = 'input - news.json'
-db_path = 'test1.db'
-db_manager = DatabaseManager(db_path)
+db = DatabaseManager('test2.db')  # Initialize the DatabaseManager with SQLite database file
 
 try:
     with open(file_path, 'r') as file:
         data = json.load(file)
-    print("Data successfully read from the file")
+    print("Data successfully read from the file.")
 
-    # Uncomment these lines if you want to delete the file after processing
-    # os.remove(file_path)
-    # print("File has been deleted.")
+    # Deleting the file could be problematic if errors occur during processing, consider this operation carefully
+    #os.remove(file_path)
+    #print("File has been deleted.")
 except FileNotFoundError:
     print("The file was not found.")
-    sys.exit(1)  # Exit the script as there's no file to process
+    sys.exit(1)  # exit script if file not found
 
-today = str(date.today())
-for i, detail in enumerate(data['file_type_details']):
-    file_type = detail['file_type']
+adv_data = str(data['file_type_details'][0]['adv_text'])
 
-    if file_type == 'adv':
-        adv_text = funct_dq.norm_text(detail['adv_text'])
-        content = funct_dq.add_space_after_dot(adv_text)
-        title = f"Advertisement {i + 1}"
-        print(content)
+if data['file_type_gen'] == 'adv':
+    x = funct_dq.norm_text(adv_data)
+    y = funct_dq.add_space_after_dot(x)
+    print(y)
+    db.insert_adv(y)  # Save to database
 
-    elif file_type == 'shop':
-        fuel_type = detail['fuel_type']
-        if fuel_type in ['diesel', 'gas']:
-            content = detail[fuel_type]
-            title = f"Shop info {i + 1} - {fuel_type}"
-            print(content)
+elif data['file_type_gen'] == 'shop':
+    for detail in data['file_type_details']:
+        if 'fuel_type' in detail:
+            fuel_type = detail['fuel_type']
+            info = detail.get(fuel_type, 'No info provided')
+            print(info)
+            db.insert_shop(fuel_type, info)  # Save to database
 
-    elif file_type == 'news':
-        content = f"{today} In the city {detail['city_name']} {detail['new_text']}"
-        title = f"News {i + 1}"
-        print(content)
+elif data['file_type_gen'] == 'news':
+    for detail in data['file_type_details']:
+        if 'city_name' in detail and 'new_text' in detail:
+            today = str(date.today())
+            city_name = detail['city_name']
+            new_text = detail['new_text']
+            full_message = f"{today} In the city {city_name} {new_text}"
+            print(full_message)
+            db.insert_news(today, city_name, new_text)  # Save to database
 
-    if content:
-        db_manager.insert_record(file_type, title, content)
-
-db_manager.close()
-
-db_manager.close()
